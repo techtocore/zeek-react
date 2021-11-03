@@ -92,13 +92,16 @@ event connection_state_remove(c: connection)
         c$conn$bulk = T;
     }
 
+hook custom_log_policy(rec: Conn::Info, id: Log::ID, filter: Log::Filter)
+{
+    return rec$bulk;
+}
+
 event zeek_init()
 {
     Log::add_filter(Conn::LOG, [
         $name = "conn-bulk",
         $path = "conn_bulk",
-        $pred(rec: Conn::Info) = {
-            return rec$bulk;
-        }
+        $policy=custom_log_policy
     ]);
 }
