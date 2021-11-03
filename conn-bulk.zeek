@@ -9,11 +9,11 @@ export {
     const size_threshold = 134217728 &redef; #128 megabytes
 
     ## Max number of times to check whether a connection's size exceeds the
-    ## :bro:see:`Bulk::size_threshold`.
+    ## :zeek:see:`Bulk::size_threshold`.
     const max_poll_count = 30 &redef;
 
     ## Base amount of time between checking whether a data connection
-    ## has transferred more than :bro:see:`Bulk::size_threshold` bytes.
+    ## has transferred more than :zeek:see:`Bulk::size_threshold` bytes.
     const poll_interval_1 = 500msec &redef;
     const poll_interval_2 = 30sec &redef;
 
@@ -23,12 +23,12 @@ export {
     global connection_detected: event(c: connection);
 
     ## The initial criteria used to determine whether to start polling
-    ## the connection for the :bro:see:`Bulk::size_threshold` to have
+    ## the connection for the :zeek:see:`Bulk::size_threshold` to have
     ## been exceeded.
     ## c: The connection which may possibly be a Bulk data channel.
     ##
     ## Returns: true if the connection should be further polled for an
-    ##          exceeded :bro:see:`Bulk::size_threshold`, else false.
+    ##          exceeded :zeek:see:`Bulk::size_threshold`, else false.
     const bulk_initial_criteria: function(c: connection): bool &redef;
 
     type PortRange: record {
@@ -92,7 +92,7 @@ event connection_state_remove(c: connection)
         c$conn$bulk = T;
     }
 
-event bro_init()
+event zeek_init()
 {
     Log::add_filter(Conn::LOG, [
         $name = "conn-bulk",
